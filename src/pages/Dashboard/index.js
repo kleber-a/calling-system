@@ -1,27 +1,27 @@
 import { signOut } from "firebase/auth";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
-import { auth } from "../../service/firebaseConnection";
+
 
 function Dashboard() {
   
-  const {user, setUser,signOutt, logado} = useContext(AuthContext);
-  console.log(logado)
+  const {user,signOutt} = useContext(AuthContext);
+  console.log(user)
 
-  async function signOuttt(){
-    setUser(null);    
-    localStorage.removeItem('SistemaUser')
-    await signOut(auth)
+  function signOuttt(){
+    signOutt()
     .then((e)=>{
-      console.warn(`EVENTO ${e}`)
+      console.warn(`Erro ao deslogar ${e}`)
 
     })
+    .catch((error)=>{ alert(`Error ao deslogar -> ${error}`)})
+    
 }
     return (
       <div className="App">
         <h2>Dashboard</h2>
         <button onClick={()=>signOuttt()}>Sair</button>
-        <button onClick={()=>setUser()}>SairUser</button>
+        
       </div>
     );
   }

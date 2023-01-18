@@ -17,8 +17,8 @@ export default function Rotas() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={ logado? <Navigate to="/dashboard" /> : <SignIn />} />
-                <Route path="/register" element={logado? <Navigate to="/dashboard" /> : <SignUp />} />
+                <Route path="/" element={ user? <Navigate to="/dashboard" /> : <SignIn />} />
+                <Route path="/register" element={user? <Navigate to="/dashboard" /> : <SignUp />} />
                 <Route path="/dashboard" element={<PrivateRoute> <Dashboard /> </PrivateRoute>} />
             </Routes>
         </BrowserRouter>

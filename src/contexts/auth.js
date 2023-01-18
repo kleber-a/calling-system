@@ -1,7 +1,8 @@
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { useState, createContext, useEffect } from 'react';
 import { auth, db } from '../service/firebaseConnection';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { toast } from 'react-toastify';
 
 
 
@@ -32,6 +33,36 @@ function AuthProvider({ children }) {
 
     }, [])
 
+    //Fazer Login
+    async function signIn(email,password){
+        setLoadingAuth(true);
+        
+        await signInWithEmailAndPassword(auth,email,password)
+        .then(async(value)=>{
+            let uid = value.user.uid;
+
+            const userProfile = await getDoc(doc(db,"users",uid))
+
+            let data = {
+                uid: uid,
+                nome: userProfile.data().name,
+                avatarUrl: userProfile.data().avatarUrl,
+                email: value.user.email
+            };
+            setUser(data);
+            storageUser(data);
+            setLoadingAuth(false);
+            toast.success('Bem vindo de volta')
+
+        }) 
+        .catch((error)=>{
+            console.log(error)
+            toast.success('Ops algo deu errado')
+            setLoadingAuth(false)
+        })
+    }
+    
+    //Cadastrar Novo Usuário
     async function signUp(email, password, name) {
         setLoadingAuth(true);
         await createUserWithEmailAndPassword(auth, email, password)
@@ -51,20 +82,15 @@ function AuthProvider({ children }) {
                         };
                         setUser(data);
                         storageUser(data);
-                        setLoadingAuth(false)
-                        alert('Message submitted 👍');
+                        setLoadingAuth(false);
+                        toast.success('Bem vindo a plataforma!')
                     })
                     .catch((error) => {
-                        alert(error.message);
-                        setLoadingAuth(false)
+                        console.log(error);
+                        toast.error('Ops algo deu errado')
+                        setLoadingAuth(false);
                     });
 
-            })
-
-            await signInWithEmailAndPassword(auth, email,password)
-            .then((value)=>{
-                console.warn(value.user);
-                setLogado(value.user);
             })
     }
 
@@ -72,16 +98,28 @@ function AuthProvider({ children }) {
         localStorage.setItem('SistemaUser', JSON.stringify(data));
     }
 
-    async function signOut(){
+    //Fazer Logout do usuario
+    async function signOutt(){
         await signOut(auth);  
         localStorage.removeItem('SistemaUser');
         setUser(null);
+        setLogado(null);
     }
 
 
 
     return (
-        <AuthContext.Provider value={{ signed: !!user, user, setUser, loading, signUp, signOut }}>
+        <AuthContext.Provider value={{ 
+            signed: !!user, 
+            user, 
+            setUser, 
+            loading, 
+            signUp, 
+            signOutt, 
+            signIn, 
+            loadingAuth, 
+            logado 
+            }}>
             {children}
         </AuthContext.Provider>
     )
