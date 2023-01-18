@@ -1,7 +1,7 @@
 import { signOut } from "firebase/auth";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
-
+import Header from "../../components/Header";
 
 function Dashboard() {
   
@@ -19,6 +19,7 @@ function Dashboard() {
 }
     return (
       <div className="App">
+        <Header/>
         <h2>Dashboard</h2>
         <button onClick={()=>signOuttt()}>Sair</button>
         
