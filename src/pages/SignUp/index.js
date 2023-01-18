@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { useState,useContext } from 'react';
+import {Link, redirect} from 'react-router-dom'
 import logo from '../../assests/logo.png'
+import { AuthContext } from '../../contexts/auth'; 
 
 function SignUp() {
 
@@ -8,11 +9,22 @@ function SignUp() {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
 
+  const {signUp,user} = useContext(AuthContext);
+
   function handleSubmit(e){
     e.preventDefault();
-    alert("Clicou")
+    
+    if(nome != '' && email != '' && password != ''){
+      signUp(email,password,nome);
+      setNome('');
+      setEmail('');
+      setPassword('');
+      
+      
+    }
   }
-
+  
+  
   return (
     <div className="container-center">
       <div className='login'>
@@ -22,7 +34,7 @@ function SignUp() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          <h1>Entrar</h1>
+          <h1>Cadastrar</h1>
           <input type="text" placeholder='Seu nome' value={nome} onChange={(e)=> setNome(e.target.value)} />
           <input type="text" placeholder="email@email.com" value={email} onChange={(e)=> setEmail(e.target.value)}/>
           <input type="password" placeholder="*******" value={password} onChange={(e)=> setPassword(e.target.value)}/>
