@@ -8,6 +8,7 @@ import Dashboard from '../pages/Dashboard';
 import PrivateRoute from './privateRoute';
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../contexts/auth';
+import Profile from '../pages/Profile'
 
 export default function Rotas() {
 
@@ -20,6 +21,7 @@ export default function Rotas() {
                 <Route path="/" element={ user? <Navigate to="/dashboard" /> : <SignIn />} />
                 <Route path="/register" element={user? <Navigate to="/dashboard" /> : <SignUp />} />
                 <Route path="/dashboard" element={<PrivateRoute> <Dashboard /> </PrivateRoute>} />
+                <Route path="/profile" element={<PrivateRoute> <Profile /> </PrivateRoute>} />
             </Routes>
         </BrowserRouter>
     )

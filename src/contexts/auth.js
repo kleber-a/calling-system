@@ -118,6 +118,8 @@ function AuthProvider({ children }) {
             signOutt, 
             signIn, 
             loadingAuth, 
+            setUser,
+            storageUser,
             logado 
             }}>
             {children}

@@ -21,7 +21,7 @@ function Dashboard() {
       <div className="App">
         <Header/>
         <h2>Dashboard</h2>
-        <button onClick={()=>signOuttt()}>Sair</button>
+        
         
       </div>
     );
