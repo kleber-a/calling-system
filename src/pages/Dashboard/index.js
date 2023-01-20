@@ -1,7 +1,9 @@
-import { signOut } from "firebase/auth";
-import { useContext } from "react";
+import './dashboard.css';
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 import Header from "../../components/Header";
+import Title from '../../components/Title'
+import { FiMessageSquare } from 'react-icons/fi'
 
 function Dashboard() {
   
@@ -20,7 +22,16 @@ function Dashboard() {
     return (
       <div className="App">
         <Header/>
-        <h2>Dashboard</h2>
+        <div className='content'>
+          <Title name="Chamados">
+            <FiMessageSquare size={25} />
+          </Title>
+
+          <div className='container dashboard' >
+
+          </div>
+
+        </div>
         
         
       </div>

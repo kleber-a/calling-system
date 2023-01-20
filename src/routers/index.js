@@ -9,6 +9,7 @@ import PrivateRoute from './privateRoute';
 import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../contexts/auth';
 import Profile from '../pages/Profile'
+import Customers from '../pages/Customers';
 
 export default function Rotas() {
 
@@ -22,6 +23,7 @@ export default function Rotas() {
                 <Route path="/register" element={user? <Navigate to="/dashboard" /> : <SignUp />} />
                 <Route path="/dashboard" element={<PrivateRoute> <Dashboard /> </PrivateRoute>} />
                 <Route path="/profile" element={<PrivateRoute> <Profile /> </PrivateRoute>} />
+                <Route path="/customers" element={<PrivateRoute> <Customers /> </PrivateRoute>} />
             </Routes>
         </BrowserRouter>
     )
