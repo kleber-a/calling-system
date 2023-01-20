@@ -11,7 +11,7 @@ function Dashboard() {
   const { user, signOutt } = useContext(AuthContext);
   console.log(user)
 
-  const [chamados, setChamados] = useState([1]);
+  const [chamados, setChamados] = useState([]);
 
   return (
     <div className="App">
