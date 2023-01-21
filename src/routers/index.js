@@ -26,6 +26,7 @@ export default function Rotas() {
                 <Route path="/profile" element={<PrivateRoute> <Profile /> </PrivateRoute>} />
                 <Route path="/customers" element={<PrivateRoute> <Customers /> </PrivateRoute>} />
                 <Route path="/new" element={<PrivateRoute> <New /> </PrivateRoute>} />
+                <Route path="/new/:id" element={<PrivateRoute> <New /> </PrivateRoute>} />
             </Routes>
         </BrowserRouter>
     )
