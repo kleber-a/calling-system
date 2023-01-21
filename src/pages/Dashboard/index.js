@@ -9,6 +9,7 @@ import { collection, getDocs, limit, orderBy, query, startAfter } from 'firebase
 import { db } from '../../service/firebaseConnection';
 import { format } from 'date-fns'
 import { toast } from 'react-toastify';
+import Modal from '../../components/Modal';
 
 function Dashboard() {
 
@@ -20,6 +21,11 @@ function Dashboard() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [lastDocs, setLastDocs] = useState();
+
+  //Modal
+  const [showPostModal, setShowPostModal] = useState(false)
+  const [detail, setDetail] = useState()
+
 
   const listRef = query(collection(db, "chamados"), orderBy('created', 'desc'), limit(5))
 
@@ -117,6 +123,10 @@ function Dashboard() {
       })
   }
 
+  function togglePostModal(item) {
+    setShowPostModal(!showPostModal)
+    setDetail(item);
+  }
 
   if (loading) {
     return (
@@ -182,7 +192,7 @@ function Dashboard() {
                       </td>
                       <td data-label="Cadastrado">{item.createdFormated}</td>
                       <td data-label="#">
-                        <button className='action' style={{ background: '#35883f6' }}>
+                        <button className='action' onClick={() => togglePostModal(item)} style={{ background: '#35883f6' }}>
                           <FiSearch color='#FFF' size={17} />
                         </button>
                         <button className='action' style={{ background: '#f6a935' }}>
@@ -207,6 +217,13 @@ function Dashboard() {
 
 
       </div>
+
+      {showPostModal && (
+        <Modal
+          conteudo={detail}
+          close={togglePostModal}
+        />
+      )}
 
 
     </div>
