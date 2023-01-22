@@ -1,0 +1,16 @@
+
+
+.loading{
+    align-self: center;
+    width: 40px;
+    height: 40px;
+    border: 6px solid rgba(1,1,1, 0.2);
+    border-left-color: #020307;
+    border-right-color: #2103a8;
+    border-radius: 50%;
+    animation: loop 0.5s linear infinite;
+}
+
+@keyframes loop {
+    to {transform: rotate(360deg);}
+}

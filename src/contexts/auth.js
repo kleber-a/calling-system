@@ -91,6 +91,10 @@ function AuthProvider({ children }) {
                         setLoadingAuth(false);
                     });
 
+            }).catch((error)=>{
+                console.log(error);
+                toast.error('Por favor digite o email conforme exemplo: email@email.com')
+                setLoadingAuth(false);
             })
     }
 
