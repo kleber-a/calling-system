@@ -117,7 +117,7 @@ function Dashboard() {
         } else {
           setIsEmpty(true);
           setLoadingMore(false)
-          toast("Não há mais doc na lista")
+          toast.info("Não há mais chamado na lista")
 
         }
       })

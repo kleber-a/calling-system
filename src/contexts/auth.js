@@ -57,7 +57,7 @@ function AuthProvider({ children }) {
         }) 
         .catch((error)=>{
             console.log(error)
-            toast.success('Ops algo deu errado')
+            toast.error('Ops algo deu errado')
             setLoadingAuth(false)
         })
     }

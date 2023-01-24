@@ -21,10 +21,11 @@ export default function Modal({conteudo, close}){
 
                     <div className='row'>
                         <span>
-                            Assunto: <i>{conteudo.assunto}</i>
+                            Assunto: <i>{conteudo.assunto}  </i>
                         </span>
+                        
                         <span>
-                            Cadastrado em: <i>{conteudo.createdFormated}</i>
+                             Cadastrado em: <i>{conteudo.createdFormated}</i>
                         </span>
                     </div>
 

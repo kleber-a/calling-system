@@ -25,7 +25,7 @@ export default function Customers() {
                 setNomeFantasia('');
                 setCnpj('');
                 setEndereco('');
-                toast.info("Empresa cadastrada com sucesso");
+                toast.success("Empresa cadastrada com sucesso");
             })
             .catch((error)=>{
                 toast.error("Preencha todos os campos");

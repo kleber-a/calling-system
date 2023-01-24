@@ -11,22 +11,23 @@ import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../contexts/auth';
 import Profile from '../pages/Profile'
 import Customers from '../pages/Customers';
+import Erro from '../pages/Erro';
 
 export default function Rotas() {
-
     const {user,logado} = useContext(AuthContext);
-    const [teste,setTeste] = useState(false)
-
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={ user? <Navigate to="/dashboard" /> : <SignIn />} />
                 <Route path="/register" element={user? <Navigate to="/dashboard" /> : <SignUp />} />
+                
                 <Route path="/dashboard" element={<PrivateRoute> <Dashboard /> </PrivateRoute>} />
                 <Route path="/profile" element={<PrivateRoute> <Profile /> </PrivateRoute>} />
                 <Route path="/customers" element={<PrivateRoute> <Customers /> </PrivateRoute>} />
                 <Route path="/new" element={<PrivateRoute> <New /> </PrivateRoute>} />
                 <Route path="/new/:id" element={<PrivateRoute> <New /> </PrivateRoute>} />
+                
+                <Route path='/*' element={<Erro/>} />
             </Routes>
         </BrowserRouter>
     )
