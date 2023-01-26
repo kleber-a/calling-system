@@ -116,7 +116,11 @@ export default function New() {
             assunto: assunto,
             status: status,
             complemento: complemento,
-            userId: user.uid
+            userId: user.uid,
+            userName : user.nome,
+            userEmail: user.email,
+            userAvatarUrl: user.avatarUrl
+            
         })
             .then(() => {
                 toast.success('Chamado criado com sucesso');
@@ -130,7 +134,6 @@ export default function New() {
             })
 
     }
-
     function handleChangeSelect(e) {
         setAssunto(e.target.value);
     }

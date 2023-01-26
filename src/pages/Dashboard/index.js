@@ -69,7 +69,10 @@ function Dashboard() {
           created: item.data().created,
           createdFormated: format(item.data().created.toDate(), 'dd/MM/yyyy'),
           status: item.data().status,
-          complemento: item.data().complemento
+          complemento: item.data().complemento,
+          userName: item.data().userName,
+          userEmail: item.data().userEmail,
+          userAvatarUrl: item.data().userAvatarUrl
         })
       })
       const lastDoc = snapshot.docs[snapshot.docs.length - 1];
@@ -107,7 +110,10 @@ function Dashboard() {
               created: item.data().created,
               createdFormated: format(item.data().created.toDate(), 'dd/MM/yyyy'),
               status: item.data().status,
-              complemento: item.data().complemento
+              complemento: item.data().complemento,
+              userName: item.data().userName,
+              userEmail: item.data().userEmail,
+              userAvatarUrl: item.data().userAvatarUrl
             }])
 
           })

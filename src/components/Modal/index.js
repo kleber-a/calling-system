@@ -3,6 +3,7 @@ import './modal.css'
 import {FiX} from 'react-icons/fi'
 
 export default function Modal({conteudo, close}){
+    console.log(conteudo);
     return(
         <div className='modal'>
             <div className='container'>
@@ -43,7 +44,13 @@ export default function Modal({conteudo, close}){
                             </p>
                         </>
                     )}
-
+                    <div className='row'>
+                    
+                    <img src={conteudo.userAvatarUrl} />
+                    <span>Chamado aberto por: {conteudo.userName}</span>
+                    <span>Email: {conteudo.userEmail}</span>
+                        
+                    </div>
                 </div>
             </div>
         </div>
