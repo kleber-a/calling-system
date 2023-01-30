@@ -86,7 +86,7 @@ export default function New() {
 
     async function handleRegister(e) {
         e.preventDefault();
-
+        
         if(idCustomers){
             await updateDoc(doc(db, "chamados", id),{
                 cliente: customers[customerSelected].nomeFantasia,
@@ -126,6 +126,7 @@ export default function New() {
                 toast.success('Chamado criado com sucesso');
                 setComplemento('');
                 setCustomerSelected(0);
+                navigate("/")
             })
             .catch((error) => {
                 console.log(error);

@@ -24,7 +24,7 @@
     font-weight: 600;
     font-size: 1.1em;
     border-radius: 6px;
-    transition: ease-in 0.2s;  /*Estudar isso */
+    transition: ease-in 0.2s;  /*---*/
 }
 
 .new svg{
@@ -38,11 +38,11 @@
 
 table{
     border: 1px solid #CCC;
-    border-collapse: collapse; /*Estudar isso */
+    border-collapse: collapse; /*---*/
     margin: 0;
     padding: 0;
     width: 100%;
-    table-layout: fixed; /*Estudar isso */
+    table-layout: fixed; /*---*/
 }
 
 table caption{
@@ -78,8 +78,10 @@ table td .action{
 }
 
 table td .action svg{
-    vertical-align: middle; /*Estudar isso */
+    vertical-align: middle; /*----*/
 }
+
+
 
 table td .badge{
     padding: 3px;
@@ -109,10 +111,10 @@ table td .badge{
 
     table thead{
         border: none;
-        clip: rect(0 0 0 0); /*Estudar */
+        clip: rect(0 0 0 0); /*---*/
         height: 1px;
         margin: -1px;
-        overflow: hidden; /*Estudar */
+        overflow: hidden; /*---*/
         padding: 0;
         position: absolute;
         width: 1px;

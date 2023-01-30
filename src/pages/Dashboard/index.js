@@ -4,8 +4,9 @@ import { AuthContext } from "../../contexts/auth";
 import Header from "../../components/Header";
 import Title from '../../components/Title';
 import { FiMessageSquare, FiPlus, FiSearch, FiEdit2 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import { collection, getDocs, limit, orderBy, query, startAfter } from 'firebase/firestore';
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { Link, useNavigate } from 'react-router-dom';
+import { collection, deleteDoc, getDocs, limit, orderBy, query, startAfter, doc } from 'firebase/firestore';
 import { db } from '../../service/firebaseConnection';
 import { format } from 'date-fns'
 import { toast } from 'react-toastify';
@@ -26,6 +27,7 @@ function Dashboard() {
   const [showPostModal, setShowPostModal] = useState(false)
   const [detail, setDetail] = useState()
 
+  const navigate = useNavigate();
 
   const listRef = query(collection(db, "chamados"), orderBy('created', 'desc'), limit(5))
 
@@ -33,9 +35,7 @@ function Dashboard() {
 
     loadChamados();
 
-    return () => {
-
-    }
+    
   }, [])
 
   async function loadChamados() {
@@ -52,7 +52,7 @@ function Dashboard() {
     setLoading(false)
 
   }
-
+console.log(chamados)
 
   async function updateState(snapshot) {
     const isCollectionEmpty = snapshot.size === 0;
@@ -76,18 +76,12 @@ function Dashboard() {
         })
       })
       const lastDoc = snapshot.docs[snapshot.docs.length - 1];
-
       setChamados(chamados => [...chamados, ...lista]);
-
       setLastDocs(lastDoc);
-
     } else {
       setIsEmpty(true);
     }
-
-
     setLoadingMore(false)
-
   }
 
   async function handleMore() {
@@ -123,7 +117,7 @@ function Dashboard() {
         } else {
           setIsEmpty(true);
           setLoadingMore(false)
-          toast.info("Não há mais chamado na lista")
+          toast.info("Não há mais chamados na lista")
 
         }
       })
@@ -132,6 +126,18 @@ function Dashboard() {
   function togglePostModal(item) {
     setShowPostModal(!showPostModal)
     setDetail(item);
+  }
+
+  async function deleteStatus(item){
+    console.warn(item.id)
+    await deleteDoc(doc(db,'chamados', item.id))
+    .then(()=>{
+      toast.success("Item deletado com sucesso")
+      navigate("/")
+    })
+    .catch(()=>{
+      toast.error("Ops deu algum problema")
+    })
   }
 
   if (loading) {
@@ -189,21 +195,32 @@ function Dashboard() {
               </thead>
               <tbody>
                 {chamados.map((item, index) => {
+                  let status = ''
+                  if(item.status === 'Aberto'){
+                    status = '#027fe9'
+                  } else if(item.status === 'Atendido'){
+                    status = '#5cb85c'
+                  }else {
+                    status = '#ee9b57'
+                  }
                   return (
                     <tr key={index}>
                       <td data-label="Cliente">{item.cliente}</td>
                       <td data-label="Assunto">{item.assunto}</td>
                       <td data-label="Status">
-                        <span className='badge' style={{ backgroundColor: item.status === 'Aberto' ? '#5cb85c' : '#999' }} >{item.status}</span>
+                        <span className='badge' style={{backgroundColor: status}} >{item.status}</span> {/* backgroundColor: item.status === 'Aberto' ? '#5cb85c' : '#999'*/}
                       </td>
                       <td data-label="Cadastrado">{item.createdFormated}</td>
                       <td data-label="#">
                         <button className='action' onClick={() => togglePostModal(item)} style={{ background: '#35883f6' }}>
-                          <FiSearch color='#FFF' size={17} />
+                          <FiSearch color='#111' size={17} />
                         </button>
                         <Link className='action' to={`/new/${item.id}`} style={{ background: '#f6a935' }}>
                           <FiEdit2 color='#FFF' size={17} />
                         </Link>
+                        <button className='action' onClick={() => deleteStatus(item)} style={{ background: '#35883f6' }}>
+                          <IoCloseCircleOutline color='red' size={22} />
+                        </button>
                       </td>
                     </tr>
                   )
