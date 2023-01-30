@@ -15,3 +15,16 @@ form input[type="radio"]:not(:first-child){
     padding-left: .5em;
     font-size: 1.3em;
 }
+
+.noSubmit{
+    height: 35px;
+    border: 0;
+    border-radius: 7px;
+    background-color: rgba(105, 105, 105, 0.8);
+    color: #FFF;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 1.3em sans-serif;
+}

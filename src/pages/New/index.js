@@ -19,6 +19,7 @@ export default function New() {
     const [customers, setCustomers] = useState([])
     const [loadCustomers, setLoadCustomers] = useState(true);
     const [customerSelected, setCustomerSelected] = useState(0);
+    const [button, setButton] = useState(false)
 
     const [assunto, setAssunto] = useState('Suporte');
     const [status, setStatus] = useState('Aberto');
@@ -42,15 +43,14 @@ export default function New() {
                     })
 
                     if (lista.length === 0) {
-                        console.log("Nenhuma empresa encontrada");
-                        setCustomers([{ id: 1, nomeFantasia: 'Freela' }])
+                        setCustomers([{ id: 1, nomeFantasia: 'Nenhum cliente cadastrado' }])
                         setLoadCustomers(false);
+                        setButton(true)
                         return;
                     }
 
                     setCustomers(lista);
                     setLoadCustomers(false);
-
                     if (id) {
                         loadId(lista);
                     }
@@ -64,11 +64,10 @@ export default function New() {
         }
         loadCustomers();
     }, [id])
-
+    console.log(customerSelected)
     async function loadId(lista) {
         await getDoc(doc(db, 'chamados', id))
             .then((snapshot) => {
-                
                 setAssunto(snapshot.data().assunto);
                 setStatus(snapshot.data().status);
                 setComplemento(snapshot.data().complemento);
@@ -77,8 +76,8 @@ export default function New() {
                 setCustomerSelected(index);
                 setIdCustomers(true)
             })
-            .catch((error) => { 
-                console.log(`ERRO NO ID PASSADO: `, error) 
+            .catch((error) => {
+                console.log(`ERRO NO ID PASSADO: `, error)
                 setIdCustomers(false)
             })
 
@@ -86,9 +85,9 @@ export default function New() {
 
     async function handleRegister(e) {
         e.preventDefault();
-        
-        if(idCustomers){
-            await updateDoc(doc(db, "chamados", id),{
+
+        if (idCustomers) {
+            await updateDoc(doc(db, "chamados", id), {
                 cliente: customers[customerSelected].nomeFantasia,
                 clienteId: customers[customerSelected].id,
                 assunto: assunto,
@@ -96,16 +95,16 @@ export default function New() {
                 complemento: complemento,
                 userId: user.uid
             })
-            .then(()=>{
-                toast.success('Chamado Editado com Sucesso!');
-                setCustomerSelected(0);
-                setComplemento('');
-                navigate("/")
-            })
-            .catch((error)=>{
-                toast.error('Ops erro ao resgistrar, tente mais tarde.')
-                console.log(error);
-            })
+                .then(() => {
+                    toast.success('Chamado Editado com Sucesso!');
+                    setCustomerSelected(0);
+                    setComplemento('');
+                    navigate("/")
+                })
+                .catch((error) => {
+                    toast.error('Ops erro ao resgistrar, tente mais tarde.')
+                    console.log(error);
+                })
             return;
         }
 
@@ -117,10 +116,10 @@ export default function New() {
             status: status,
             complemento: complemento,
             userId: user.uid,
-            userName : user.nome,
+            userName: user.nome,
             userEmail: user.email,
             userAvatarUrl: user.avatarUrl
-            
+
         })
             .then(() => {
                 toast.success('Chamado criado com sucesso');
@@ -200,8 +199,13 @@ export default function New() {
 
                         <label>Complemento</label>
                         <textarea type='text' placeholder='Descreva seu problema (opcional)' value={complemento} onChange={(e) => setComplemento(e.target.value)} />
-
-                        <button type="submit">Registrar</button>
+                        {
+                            button ? (
+                                <span className='noSubmit'>Registrar</span>
+                                ) : (
+                                    <button type="submit">Registrar</button>
+                            )
+                        }
 
                     </form>
 
