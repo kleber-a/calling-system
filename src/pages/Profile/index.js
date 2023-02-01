@@ -9,6 +9,7 @@ import avatar from '../../assests/avatar.png'
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../service/firebaseConnection';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { toast } from 'react-toastify';
 
 export default function Profile() {
 
@@ -19,7 +20,6 @@ export default function Profile() {
     const [imageAvatar, setImageAvatar] = useState(null);
 
     function handleFile(e) {
-        //console.log(e.target.files[0])
         if (e.target.files[0]) {
             const image = e.target.files[0];
 
@@ -37,7 +37,6 @@ export default function Profile() {
 
     async function handleUpload() {
         const currentUid = user.uid;
-
         const storageRef = ref(storage, `images/${currentUid}/${imageAvatar.name}`)
         await uploadBytes(storageRef, imageAvatar)
             .then(async (value) => {
@@ -59,6 +58,7 @@ export default function Profile() {
                                 };
                                 setUser(data);
                                 storageUser(data);
+                                toast.success("Salvo")
                             })
 
                     })
@@ -67,10 +67,10 @@ export default function Profile() {
 
 
     }
-
+    //Salvar Perfil
     async function handleSave(e) {
         e.preventDefault();
-
+        //Mudar Nome
         if (imageAvatar === null && nome != '') {
             await updateDoc(doc(db, "users", user.uid), {
                 name: nome
@@ -82,8 +82,10 @@ export default function Profile() {
                     };
                     setUser(data);
                     storageUser(data);
+                    toast.success("Salvo")
                 })
         }
+        //Mudar Foto ou Foto e Nome
         else if (nome !== '' && imageAvatar !== null) {
             handleUpload();
         }

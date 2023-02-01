@@ -4,6 +4,16 @@ import {FiX} from 'react-icons/fi'
 
 export default function Modal({conteudo, close}){
     console.log(conteudo);
+
+    let status = ''
+    if(conteudo.status === 'Aberto'){
+      status = '#027fe9'
+    } else if(conteudo.status === 'Atendido'){
+      status = '#5cb85c'
+    }else {
+      status = '#ee9b57'
+    }
+
     return(
         <div className='modal'>
             <div className='container'>
@@ -32,7 +42,7 @@ export default function Modal({conteudo, close}){
 
                     <div className='row'>
                         <span>
-                            Status: <i style={{ color: '#FFF', backgroundColor: conteudo.status === 'Aberto'? '#5cb85c' : '#999'}}>{conteudo.status}</i>
+                            Status: <i style={{ color: '#FFF', backgroundColor: status}}>{conteudo.status}</i>
                         </span>
                     </div>
 

@@ -14,9 +14,6 @@ import Modal from '../../components/Modal';
 
 function Dashboard() {
 
-  const { user, signOutt } = useContext(AuthContext);
-
-
   const [chamados, setChamados] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -132,7 +129,7 @@ console.log(chamados)
     console.warn(item.id)
     await deleteDoc(doc(db,'chamados', item.id))
     .then(()=>{
-      toast.success("Item deletado com sucesso")
+      toast.success("Chamado deletado com sucesso")
       navigate("/")
     })
     .catch(()=>{
@@ -157,8 +154,6 @@ console.log(chamados)
       </div>
     )
   }
-
-
   return (
     <div className="App">
       <Header />
@@ -225,30 +220,19 @@ console.log(chamados)
                     </tr>
                   )
                 })}
-
               </tbody>
             </table>
             {loadingMore && <h3 style={{ textAlign: 'center', marginTop: 15 }}>Buscando dados...</h3>}
             {!loadingMore && !isEmpty && <button onClick={handleMore} className='btn-more'>Buscar Mais</button>}
-
           </>
-
-
         )}
-
-
-
-
       </div>
-
       {showPostModal && (
         <Modal
           conteudo={detail}
           close={togglePostModal}
         />
       )}
-
-
     </div>
   );
 }

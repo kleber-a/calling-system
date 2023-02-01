@@ -3,7 +3,7 @@ import Title from '../../components/Title';
 
 import './new.css';
 
-import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { FiPlusCircle } from 'react-icons/fi'
 import { useState, useEffect, useContext } from 'react';
@@ -64,7 +64,7 @@ export default function New() {
         }
         loadCustomers();
     }, [id])
-    console.log(customerSelected)
+    
     async function loadId(lista) {
         await getDoc(doc(db, 'chamados', id))
             .then((snapshot) => {
@@ -96,13 +96,13 @@ export default function New() {
                 userId: user.uid
             })
                 .then(() => {
-                    toast.success('Chamado Editado com Sucesso!');
+                    toast.success('Chamado editado com sucesso');
                     setCustomerSelected(0);
                     setComplemento('');
                     navigate("/")
                 })
                 .catch((error) => {
-                    toast.error('Ops erro ao resgistrar, tente mais tarde.')
+                    toast.error('Ops erro ao resgistrar, tente mais tarde')
                     console.log(error);
                 })
             return;
@@ -129,7 +129,7 @@ export default function New() {
             })
             .catch((error) => {
                 console.log(error);
-                toast.error('Ops erro ao registrar, tente mais tarde.');
+                toast.error('Ops erro ao registrar, tente mais tarde');
 
             })
 
@@ -203,7 +203,7 @@ export default function New() {
                             button ? (
                                 <span className='noSubmit'>Registrar</span>
                                 ) : (
-                                    <button type="submit">Registrar</button>
+                                <button type="submit">Registrar</button>
                             )
                         }
 
