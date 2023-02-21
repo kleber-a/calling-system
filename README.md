@@ -1,5 +1,7 @@
 # Calling-System
 
+<img src="src/assests/System.gif" width="800" height="400" >
+
 Projeto desenvolido em React para gerenciar solicitações de chamados de uma empresa. Foi utilizado também o firebase como o banco de dados.Link para acessar a aplicação: https://calling-system-gilt.vercel.app/
 
 ### 📋 Pré-requisitos
